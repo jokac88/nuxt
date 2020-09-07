@@ -1,29 +1,68 @@
 <template>
-  <svg class="NuxtLogo" width="245" height="180" viewBox="0 0 452 342" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M139 330l-1-2c-2-4-2-8-1-13H29L189 31l67 121 22-16-67-121c-1-2-9-14-22-14-6 0-15 2-22 15L5 303c-1 3-8 16-2 27 4 6 10 12 24 12h136c-14 0-21-6-24-12z"
-      fill="#00C58E"
-    />
-    <path
-      d="M447 304L317 70c-2-2-9-15-22-15-6 0-15 3-22 15l-17 28v54l39-67 129 230h-49a23 23 0 0 1-2 14l-1 1c-6 11-21 12-23 12h76c3 0 17-1 24-12 3-5 5-14-2-26z"
-      fill="#108775"
-    />
-    <path
-      d="M376 330v-1l1-2c1-4 2-8 1-12l-4-12-102-178-15-27h-1l-15 27-102 178-4 12a24 24 0 0 0 2 15c4 6 10 12 24 12h190c3 0 18-1 25-12zM256 152l93 163H163l93-163z"
-      fill="#2F495E"
-    />
-  </svg>
+  <div>
+    <b-card no-body>
+      <b-nav pills card-header slot="header" v-b-scrollspy:nav-scroller>
+        <b-nav-item href="#fat" @click="scrollIntoView">@fat</b-nav-item>
+        <b-nav-item href="#mdo" @click="scrollIntoView">@mdo</b-nav-item>
+        <b-nav-item-dropdown text="Dropdown 1,2,3" right-alignment>
+          <b-dropdown-item href="#one" @click="scrollIntoView">one</b-dropdown-item>
+          <b-dropdown-item href="#two" @click="scrollIntoView">two</b-dropdown-item>
+          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-item href="#three" @click="scrollIntoView">three</b-dropdown-item>
+        </b-nav-item-dropdown>
+        <b-nav-item href="#pi0" @click="scrollIntoView">@pi0</b-nav-item>
+      </b-nav>
+
+      <b-card-body
+        id="nav-scroller"
+        ref="content"
+        style="position:relative; height:300px; overflow-y:scroll;"
+      >
+        <p>{{ text }}</p>
+        <h4 id="fat">@fat</h4>
+        <p v-for="i in 3">{{ text }}</p>
+        <h4 id="mdo">@mdo</h4>
+        <p v-for="i in 3">{{ text }}</p>
+        <h4 id="one">one</h4>
+        <p v-for="i in 2">{{ text }}</p>
+        <h4 id="two">two</h4>
+        <p>{{ text }}</p>
+        <h4 id="three">three</h4>
+        <p v-for="i in 2">{{ text }}</p>
+        <h4 id="pi0">@pi0</h4>
+        <p v-for="i in 3">{{ text }}</p>
+      </b-card-body>
+    </b-card>
+  </div>
 </template>
 
-<style>
-.NuxtLogo {
-  animation: 1s appear;
-  margin: auto;
-}
-
-@keyframes appear {
-  0% {
-    opacity: 0;
-  }
-}
-</style>
+<script>
+export default {
+  methods: {
+    // Convenience method to scroll a heading into view.
+    // Not required for scrollspy to work
+    scrollIntoView(evt) {
+      evt.preventDefault();
+      const href = evt.target.getAttribute("href");
+      const el = href ? document.querySelector(href) : null;
+      if (el) {
+        this.$refs.content.scrollTop = el.offsetTop;
+      }
+    },
+  },
+  data() {
+    return {
+      text: `
+          Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla
+          tempor. Laborum consequat non elit enim exercitation cillum aliqua
+          consequat id aliqua. Esse ex consectetur mollit voluptate est in duis
+          laboris ad sit ipsum anim Lorem. Incididunt veniam velit elit elit veniam
+          Lorem aliqua quis ullamco deserunt sit enim elit aliqua esse irure. Laborum
+          nisi sit est tempor laborum mollit labore officia laborum excepteur
+          commodo non commodo dolor excepteur commodo. Ipsum fugiat ex est consectetur
+          ipsum commodo tempor sunt in proident.
+        `,
+    };
+  },
+};
+</script>
